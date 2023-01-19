@@ -1,0 +1,113 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class = 'container'>
+    <div class = 'row'>
+      <!-- Shipping-Form Section -->
+
+        <div class = 'col-md-6'>
+          <div class="uk-width-xlarge uk-margin">
+              <div class="uk-card uk-card-small uk-card-default uk-card-body">
+                  <form method="POST" class="row g-3" id ='shipping-form'>
+                  {% csrf_token %}
+                  <div id = 'shippingInfo'>
+                      <h3>Information du navigateur</h3>
+                      
+                      <div class = 'row'>
+                          <div class="col-md-6">
+                              <label for="visit" class="form-label">Visiteur</label>
+                              <input type="text" placeholder="{{ user.username }}" class="form-control" id="visit" name = 'username'>
+                           </div>
+                          <div class="col-md-6">
+                              <label for="items" class="form-label">Liste</label>
+
+                              <input type="text" value="{{ orders  }}" class="form-control" id="items" name = 'items'>
+
+                          </div>
+                      </div>
+                      <div class="row">
+                          <div class="col-md-6">
+                              <label for="city" class="form-label">Ville</label>
+                              <input type="text" class="form-control" id="city" name = 'city' >
+                          </div>
+                           <div class="col-md-6">
+                              <label for="address" class="form-label">Adresse</label>
+                              <input type="text" value="{{ user.address }}" class="form-control" id="address" name = 'address'>
+                           </div>
+                      </div>
+
+                      <div class = 'row'>
+                          <div class="col-md-6">
+                              <label for="email" class="form-label">Email</label>
+                              <input type="email" value="{{ user.email }}" class="form-control" id="email" name = 'email'>
+                            </div>
+                            <div class="col-md-6">
+                              <label for="zipcode" class="form-label">Code postal</label>
+                              <input type="text" class="form-control" id="zipcode" name = 'zipcode' >
+                            </div>
+                      </div>
+                      <div class = 'row'>
+                          <div class="col-md-6">
+                              <label for="state" class="form-label">Etat</label>
+                              <input type="text" class="form-control" id="state" name = 'state'>
+                           </div>
+                      </div>
+                     
+                  </div>
+
+                
+                  <div class="col-12">
+                      <div class="d-grid gap-2">
+                          <button class="btn btn-primary" type="submit" id = 'cbtn' >Continuez</button>
+                          <button class="btn btn-primary hidden" type="button" id = 'pbtn'>Paypal</button>
+                        </div>
+                  </div>
+              </form>
+                
+
+              </div>
+          </div>
+      </div>
+
+
+
+      <!-- Cart Section -->
+
+
+        <div class = 'col-md-6'>
+
+
+            <div class="uk-width-xlarge uk-margin">
+                <div class="uk-card uk-card-small uk-card-default uk-card-body"><table class="table">
+                    <thead>
+                      <tr>
+                        <h2>Résumé de la commande</h2>
+                        <h3><strong>Total: ${{ total }}</strong></h3>
+                        <th scope="col"></th>
+                        <th scope="col"><h3><strong>Nom</strong></h3></th>
+                        <th scope="col"><h3><strong>Prix</strong></h3></th>
+                        <th scope="col"><h3><strong>Quantité</strong></h3></th>
+                        <th scope="col"><h3><strong>Total</strong></h3></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {% for order in orders %}
+                      <tr>
+                        <th scope="row"><div id = "cart_image"><img src = {{order.product.thumbnail.url}}></div></th>
+                        <td><h3>{{order.product.name}}</h3></td>
+                        <td><h3>{{order.product.price}}</h3></td>
+                        <td><input type = 'number' class = 'quantity' value = "{{order.quantity}}" style = 'width: 50px; padding-left: 5px'></td>
+                        <td><h3>{% widthratio  order.product.price  1  order.quantity  %}</h3></td>
+                      </tr>
+                      {% endfor %}
+                    </tbody>
+                  </table>
+                </div>
+            </div>
+
+<p><a class="btn btn-primary" href="{% url 'delete-cart' %}">Commander </a> </p>
+        </div>
+
+    </div>
+</div>
+{% endblock %}

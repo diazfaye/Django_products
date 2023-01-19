@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+ {% block content %}
+ <div class="center">
+    <h1> Inscription </h1>
+    <form method="POST">
+       {% csrf_token %}
+       <div class="txt_field">
+          <input id="username" type="text" required name="username">
+          <span></span>
+          <label for="username">Nom d'utilisateur</label>
+       </div>
+       <div class="txt_field">
+          <input id="password" type="password" name="password">
+          <span></span>
+          <label for="password">Mot de passe</label>
+       </div>
+       <div class="txt_field">
+          <input id="address" type="text" name="address">
+          <span></span>
+          <label for="address">adresse</label>
+       </div>
+        <div class="txt_field">
+          <input id="email" type="email" name="email">
+          <span></span>
+          <label for="email">adresse électronique</label>
+       </div>
+       <input type="submit" value="Inscription">
+
+    </form>
+    </div>
+  {% endblock %} 

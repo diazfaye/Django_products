@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<!-- Quantity and Price Section -->
+<div class = 'container' style = "width: 70%">
+    <table class="table table-light table-hover">
+        <thead>
+          <tr>
+            <th scope="col"><a class="btn btn-primary btn-lg" href="{% url 'index' %}">Continue Shopping →</a></th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+
+          <tr>
+            <th scope="row"><h3><strong>orders: {{ ordertotal }}</strong></h3></th>
+            <td></td>
+            <td><h3><strong>Total: ${{total}}</strong></h3></td>
+            <!-- <td></td> -->
+            <td><a  class="btn btn-primary btn-lg " href="{% url 'checkout' %}">Checkout →</a></td>
+          </tr>
+
+        </tbody>
+      </table>
+    </div>
+
+
+    <!-- Cart Section -->
+<div class = 'container' style = 'margin-top: 50px; width: 70%'>
+<table class="table table-light table-hover">
+    <thead>
+      <tr>
+        <th scope="col"></th>
+        <th scope="col"><h3><strong>Nom</strong></h3></th>
+        <th scope="col"><h3><strong>Prix</strong></h3></th>
+        <th scope="col"><h3><strong>Quantité</strong></h3></th>
+        <th scope="col"><h3><strong>Total</strong></h3></th>
+      </tr>
+    </thead>
+    <tbody>
+
+      {% for order in orders %}
+      <tr>
+        <th scope="row"><div id = "cart_image"><img src = {{order.product.thumbnail.url}}></div></th>
+        <td><h3>{{order.product.name}}</h3></td>
+        <td><h3>{{order.product.price}}</h3></td>
+        <td><input type = 'number' class = 'quantity' value = "{{order.quantity}}" style = 'width: 50px; padding-left: 5px'></td>
+        <td><h3>{% widthratio  order.product.price  1  order.quantity %}</h3></td>
+      </tr>
+      {% endfor %}
+
+
+    </tbody>
+  </table>
+</div>
+{% endblock %}
